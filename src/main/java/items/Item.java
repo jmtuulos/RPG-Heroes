@@ -5,23 +5,22 @@ public class Item {
     private int requiredLevel;
     private Slot slot;
 
-    enum Slot {
+    public enum Slot {
         WEAPON,
         HEAD,
         BODY,
         LEGS,
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
     }
 
     public Slot getSlot() {
         return slot;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setSlot(Slot slot) {

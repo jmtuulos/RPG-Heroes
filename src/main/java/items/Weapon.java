@@ -1,10 +1,10 @@
 package items;
 
 public class Weapon extends Item {
-    private WeaponType weaponType;
+    private final WeaponType weaponType;
     private int damage;
 
-    enum WeaponType {
+    public enum WeaponType {
         AXE,
         BOW,
         DAGGER,
@@ -18,7 +18,7 @@ public class Weapon extends Item {
         this.setRequiredLevel(requiredLevel);
         this.damage = damage;
         this.weaponType = weaponType;
-        this.setSlot(Slot.WEAPON);
+        this.setSlot(slot);
     }
 
     public WeaponType getWeaponType() {
