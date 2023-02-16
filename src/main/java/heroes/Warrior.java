@@ -1,6 +1,5 @@
 package heroes;
 
-import attributes.HeroAttribute;
 import exceptions.InvalidArmorException;
 import exceptions.InvalidWeaponException;
 import items.Armor;
@@ -8,7 +7,7 @@ import items.Weapon;
 
 public class Warrior extends Hero{
     public Warrior(String name) {
-        super(name, "Warrior", new HeroAttribute(5, 2, 1));
+        super(name, "Warrior");
         this.setTotalAttributes(5,2,1);
         this.damageAttribute = this.getTotal().getStrength();
     }
@@ -39,8 +38,4 @@ public class Warrior extends Hero{
         this.getEquipment().put(weapon.getSlot(), weapon);
     }
 
-    @Override
-    public double damage() {
-        return 0;
-    }
 }

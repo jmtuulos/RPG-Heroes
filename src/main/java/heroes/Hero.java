@@ -11,34 +11,31 @@ import java.util.HashMap;
 
 
 public abstract class Hero {
-    private String name;
+    private final String name;
     private int level = 1;
-    private HeroAttribute attribute;
-    protected int damageAttribute;
-    private HeroAttribute total = new HeroAttribute(0, 0, 0);
-    private HeroAttribute start;
-    private HashMap<Item.Slot, Item> equipped = new HashMap<>();
-    private String heroType;
-    private double heroDamage;
+    protected int damageAttribute = 0;
+    private final HeroAttribute total = new HeroAttribute(0, 0, 0);
+    private final HashMap<Item.Slot, Item> equipped = new HashMap<>();
+    private final String heroType;
 
-    public Hero (String name, String heroType, HeroAttribute start){
+    public Hero (String name, String heroType){
         this.name = name;
         this.heroType = heroType;
-        this.start = start;
     }
     public HashMap<Item.Slot, Item> getEquipment() {
         return equipped;
     }
     public abstract void levelUp();
-    public abstract boolean equipItem (Armor armor) throws InvalidArmorException;
-    public abstract boolean equipItem (Weapon weapon) throws InvalidWeaponException;
-    public abstract double damage();
+    public abstract void equipItem (Armor armor) throws InvalidArmorException;
+    public abstract void equipItem (Weapon weapon) throws InvalidWeaponException;
     public void setLevel(int level){
         this.level = level;
     }
     public int getLevel(){
         return level;
     }
+    public String getName() {return name;}
+
     public HeroAttribute getTotal(){
         return total;
     }
@@ -50,22 +47,18 @@ public abstract class Hero {
     public double getHeroDamage() {
         Weapon weapon = (Weapon) this.equipped.get(Item.Slot.WEAPON);
 
+        double heroDamage;
         if (weapon == null)
-            this.heroDamage = (1 + (this.damageAttribute / 100d));
+            heroDamage = 1 + (this.damageAttribute / 100d);
         else
-            this.heroDamage = weapon.getDamage() * (1 + (this.damageAttribute / 100d));
+            heroDamage = weapon.getDamage() * (1 + this.damageAttribute / 100d);
         return heroDamage;
     }
 
     public void setTotalAttributes(int strength, int dexterity, int intelligence) {
-        this.total.setDexterity(this.start.getDexterity() + dexterity);
-        this.total.setIntelligence(this.start.getIntelligence() + intelligence);
-        this.total.setStrength(this.start.getStrength() + strength);
-    }
-    public void setStartAttributes(int intelligence, int strength, int dexterity) {
-        this.start.setDexterity(dexterity);
-        this.start.setIntelligence(intelligence);
-        this.start.setStrength(strength);
+        this.total.setDexterity(this.total.getDexterity() + dexterity);
+        this.total.setIntelligence(this.total.getIntelligence() + intelligence);
+        this.total.setStrength(this.total.getStrength() + strength);
     }
     public String display(){
         return
@@ -74,8 +67,7 @@ public abstract class Hero {
                 + "Level: " + this.level + "\n"
                 + "Strength: " + total.getStrength() + "\n"
                 + "Dexterity: " + total.getDexterity() + "\n"
-                + "Intelligence" + total.getIntelligence() + "\n"
-                + "Damage: " + heroDamage;
+                + "Intelligence: " + total.getIntelligence() + "\n"
+                + "Damage: " + this.getHeroDamage();
     }
-
 }
