@@ -37,5 +37,4 @@ public class Ranger extends Hero{
             throw new InvalidWeaponException("Not a valid weapon for" + getHeroType());
         this.getEquipment().put(weapon.getSlot(), weapon);
     }
-
 }

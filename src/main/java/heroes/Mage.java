@@ -9,13 +9,14 @@ public class Mage extends Hero {
 
     public Mage(String name) {
         super(name, "Mage");
-        this.setTotalAttributes(1,1,8);
+        this.setTotalAttributes(1, 1, 8);
         this.damageAttribute = this.getTotal().getIntelligence();
     }
+
     @Override
     public void levelUp() {
         this.setLevel(this.getLevel() + 1);
-        this.setTotalAttributes(1,1,5);
+        this.setTotalAttributes(1, 1, 5);
         this.damageAttribute = this.getTotal().getIntelligence();
     }
 
