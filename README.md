@@ -10,4 +10,6 @@ Intelligence: determines the character's affinity with magic.
 
 The project has a automated testing implemented with Github actions.
 
+## Improvements
+
 To make the game playable a game loop still needs to be implemented.
