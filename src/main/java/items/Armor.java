@@ -4,8 +4,8 @@ import attributes.HeroAttribute;
 
 public class Armor extends Item {
 
-    private ArmorType armorType;
-    private HeroAttribute armorAttribute;
+    private final ArmorType armorType;
+    private final HeroAttribute armorAttribute;
     public enum ArmorType {
         CLOTH,
         LEATHER,
