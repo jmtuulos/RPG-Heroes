@@ -1,8 +1,14 @@
 package heroes;
 
 import attributes.HeroAttribute;
+import exceptions.InvalidArmorException;
+import exceptions.InvalidWeaponException;
+import items.Item;
 import items.Armor;
 import items.Weapon;
+
+import java.util.HashMap;
+
 
 public abstract class Hero {
     private String name;
@@ -11,11 +17,17 @@ public abstract class Hero {
     protected int damageAttribute;
     private HeroAttribute total = new HeroAttribute(0, 0, 0);
     private HeroAttribute start;
+    private HashMap<Item.Slot, Item> equipped = new HashMap<>();
     private String heroType;
-    public Hero (String name, String heroType, HeroAttribute attribute){
+    private double heroDamage;
+
+    public Hero (String name, String heroType, HeroAttribute start){
         this.name = name;
-        this.attribute = attribute;
         this.heroType = heroType;
+        this.start = start;
+    }
+    public HashMap<Item.Slot, Item> getEquipment() {
+        return equipped;
     }
     public abstract void levelUp();
     public abstract boolean equipItem (Armor armor) throws InvalidArmorException;
@@ -30,7 +42,22 @@ public abstract class Hero {
     public HeroAttribute getTotal(){
         return total;
     }
-    public void setTotalAttributes(int intelligence, int strength, int dexterity) {
+
+    public String getHeroType() {
+        return heroType;
+    }
+
+    public double getHeroDamage() {
+        Weapon weapon = (Weapon) this.equipped.get(Item.Slot.WEAPON);
+
+        if (weapon == null)
+            this.heroDamage = (1 + (this.damageAttribute / 100d));
+        else
+            this.heroDamage = weapon.getDamage() * (1 + (this.damageAttribute / 100d));
+        return heroDamage;
+    }
+
+    public void setTotalAttributes(int strength, int dexterity, int intelligence) {
         this.total.setDexterity(this.start.getDexterity() + dexterity);
         this.total.setIntelligence(this.start.getIntelligence() + intelligence);
         this.total.setStrength(this.start.getStrength() + strength);
@@ -48,7 +75,7 @@ public abstract class Hero {
                 + "Strength: " + total.getStrength() + "\n"
                 + "Dexterity: " + total.getDexterity() + "\n"
                 + "Intelligence" + total.getIntelligence() + "\n"
-                + "Damage: " + total.getDamage();
+                + "Damage: " + heroDamage;
     }
 
 }
